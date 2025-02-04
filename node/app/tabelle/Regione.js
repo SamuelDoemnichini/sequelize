@@ -1,13 +1,15 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config');
 
-class Aeroporto extends Model {}
+class Regione extends Model {}
 
-Aeroporto.init({
-    codice: {
+Regione.init({
+    id: {
         type: DataTypes.SMALLINT,
         primaryKey: true,
-        allowNull: false
+        allowNull: false,
+        autoIncrement: true
+
     },
     nome: {
         type: DataTypes.STRING(20)
@@ -20,9 +22,9 @@ Aeroporto.init({
     }
 },{
     sequelize,
-    modelName: 'Aeroporti',
-    tableName: 'Aeroporti',
+    modelName: 'Regioni',
+    tableName: 'Regioni',
     timestamps: false
 });
 
-module.exports = Aeroporto;
+module.exports = Regione;

@@ -7,7 +7,8 @@ services:
     networks: 
       - rete
     depends_on: 
-      - mysql
+      mysql: 
+        condition: service_healthy
     stdin_open: true
     tty: true
 
@@ -16,6 +17,13 @@ services:
     build: ./mysql
     environment: 
       - MYSQL_ROOT_PASSWORD=cisco
+      - MYSQL_DATABASE=compagniaaerea
+    healthcheck: 
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "--password=cisco"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
     volumes:
       - mysql-data:/var/lib/mysql
     networks: 

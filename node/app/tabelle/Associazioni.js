@@ -1,6 +1,9 @@
 const Volo = require('./Volo');
 const Aeroporto = require('./Aeroporto');
 const sequelize = require('../config');
+const Categoria = require('./Categoria');
+const Citta = require('./Citta');
+const Regione = require('./Regione');
 
 Aeroporto.hasMany(Volo, {foreignKey: 'fkaeroportopartenza'});
 Aeroporto.hasMany(Volo, {foreignKey: 'fkaeroportopartenza'});
@@ -9,10 +12,13 @@ Volo.belongsTo(Aeroporto, {foreignKey: 'fkaeroportoarrivo'});
 
 const db = {
     sequelize,
-    tabelle:[
+    tabelle: {
         Volo,
-        Aeroporto
-    ]
+        Aeroporto,
+        Categoria,
+        Citta,
+        Regione
+    }
 }
 
 module.exports = db;

@@ -23,5 +23,10 @@ Volo.init({
         type: DataTypes.SMALLINT,
     },
 },{
-
+    sequelize,
+    modelName: 'Voli',
+    tableName: 'Voli',
+    timestamps: false
 })
+
+module.exports = Volo;
