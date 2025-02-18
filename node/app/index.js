@@ -1,6 +1,8 @@
 const db = require('./tabelle/Associazioni');
 const express = require('express');
 const {Op} = require('sequelize'); 
+const Citta = require('./tabelle/Citta');
+const { READCOMMITTED } = require('sequelize/lib/table-hints');
 const app = express();
 app.use(express.json());
 
@@ -86,8 +88,25 @@ app.get('/voli/:data', async (req, res) => {
     }))
 })
 
+app.get("/citta/:citta", async (req, res) => {
+    try{
+        const idCitta = req.params.citta
+        res.json(await getVoliPerCitta(idCitta))
+    }catch(err){
 
+    }
+})
 
+async function getVoliPerCitta (idCitta) {
+    return db.tabelle.Volo.findAll({
+        include:{
+            model: db.tabelle.Aeroporto,
+            where: {fkcitta: idCitta},
+            attributes:[],
+            foreignKey: 'fkaeroportopartenza',
+        }
+    })
+}
 
 app.listen(3000, () => {
     console.log("Server running on port 3000")
